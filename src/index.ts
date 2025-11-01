@@ -1,20 +1,20 @@
+// import type { Core } from '@strapi/strapi';
+
 export default {
-  async bootstrap({ strapi }: { strapi: any }) {
-    // ✅ Reset admin password temporarily
-    const email = 'mohammedelsisi21@gmail.com';
-    const newPassword = 'Admin@123';
+  /**
+   * An asynchronous register function that runs before
+   * your application is initialized.
+   *
+   * This gives you an opportunity to extend code.
+   */
+  register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
-    const adminUser = await strapi.db.query('admin::user').findOne({ where: { email } });
-
-    if (adminUser) {
-      const newHashedPassword = await strapi.service('admin::auth').hashPassword(newPassword);
-      await strapi.db.query('admin::user').update({
-        where: { id: adminUser.id },
-        data: { password: newHashedPassword },
-      });
-      console.log(`✅ Password reset successful for ${email}`);
-    } else {
-      console.log('⚠️ No admin found with that email');
-    }
-  },
+  /**
+   * An asynchronous bootstrap function that runs before
+   * your application gets started.
+   *
+   * This gives you an opportunity to set up your data model,
+   * run jobs, or perform some special logic.
+   */
+  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
 };
